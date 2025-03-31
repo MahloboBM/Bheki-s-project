@@ -104,7 +104,7 @@ def gamblers_ruin_simulation(initial_money, goal_money, win_probability, payout,
             else:
                 # Increase bet by factor 1/p for each level of losing streak
                 base_bet = 1 * (1/win_probability) ** losing_streak
-            
+
             # Apply maximum bet limit
             current_bet = min(base_bet, max_bet)
             
@@ -113,7 +113,7 @@ def gamblers_ruin_simulation(initial_money, goal_money, win_probability, payout,
                 available_funds = money + (credit_limit - credit_used)
             else:
                 available_funds = money
-                
+
             current_bet = min(current_bet, available_funds)
             
             # If we need to use credit for this bet
