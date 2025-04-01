@@ -1,66 +1,84 @@
-# Gambler's Ruin Simulator
+# Gambler's Ruin Simulation
 
-An interactive web application that demonstrates the Gambler's Ruin problem through a slot machine simulation. Built with Streamlit and Python.
+This project simulates the gambler's ruin problem, exploring different betting strategies and their outcomes.
 
 ## Features
 
-- Interactive slot machine interface
-- Customizable game parameters
-- Real-time probability calculations
-- Guardian Angel advisor with mathematical insights
-- Casino Dealer with typical gambling fallacies
-- Visual statistics and tracking
-- Credit system simulation
+- Simulate gambler's ruin scenarios with various parameters
+- Support for credit-based betting
+- Configurable betting strategies
+- Interactive visualization of results
+- REST API for programmatic access
 
 ## Installation
 
-1. Clone this repository:
+1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/Bheki-s-project.git
-cd Bheki-s-project
+git clone <repository-url>
+cd gamblers-ruin
 ```
 
-2. Create and activate a virtual environment (recommended):
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows, use: venv\Scripts\activate
-```
-
-3. Install the required packages:
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Run the application:
+## Usage
+
+### Running the Streamlit App
+
+To run the interactive web interface:
+
 ```bash
-streamlit run main.py
+streamlit run src/app.py
 ```
 
-## How to Use
+### Using the API
 
-1. Adjust the game settings in the sidebar:
-   - Starting Amount: Your initial money
-   - Goal Amount: The amount you want to reach
-   - Win Probability: Chance of winning each bet
-   - Payout Multiplier: How much you win on a successful bet
-   - Borrowing Options: Enable/disable credit system
-   - Maximum Bet: Cap on bet size
+The project includes a REST API for programmatic access to the simulation. To run the API server:
 
-2. Click the "SPIN" button to play
-3. Watch the advisors for different perspectives:
-   - Guardian Angel: Provides mathematical insights and warnings
-   - Casino Dealer: Demonstrates common gambling fallacies
-4. Track your progress with the statistics panel
+```bash
+python src/api/simulation_api.py
+```
 
-## Educational Purpose
+The API will be available at `http://localhost:8000`. You can access the interactive API documentation at `http://localhost:8000/docs`.
 
-This simulator is designed to demonstrate:
-- The mathematics behind gambling
-- Common gambling fallacies
-- The impact of house edge
-- Risk of borrowing while gambling
-- Importance of responsible gambling
+#### Example API Request
+
+Using curl:
+```bash
+curl -X POST "http://localhost:8000/simulate" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "initial_money": 100,
+           "goal_money": 200,
+           "win_probability": 0.5,
+           "payout": 2.0,
+           "credit_limit": 50,
+           "max_bet": 20,
+           "num_simulations": 1000,
+           "allow_borrowing": true
+         }'
+```
+
+The API will return a JSON response with:
+- `win_probability`: Probability of reaching the goal
+- `loss_probability`: Probability of losing all money
+
+## Project Structure
+
+```
+gamblers-ruin/
+├── src/
+│   ├── app.py              # Streamlit web interface
+│   ├── api/
+│   │   └── simulation_api.py  # FastAPI server
+│   └── utils/
+│       └── simulation.py   # Core simulation logic
+├── requirements.txt        # Project dependencies
+└── README.md              # Project documentation
+```
 
 ## License
 
-MIT License
+This project is licensed under the MIT License - see the LICENSE file for details.
